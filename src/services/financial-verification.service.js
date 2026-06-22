@@ -7,6 +7,10 @@ class FinancialVerificationService {
     return this.usersDb.find((user) => user.accountAlpha === accountId);
   }
 
+  findAccountByUserId(userId) {
+    return this.usersDb.find((user) => user.id === userId);
+  }
+
   validateTransfer(fromAccountId, toAccountId, amount) {
     const sender = this.findAccountById(fromAccountId);
     if (!sender) {
@@ -43,6 +47,19 @@ class FinancialVerificationService {
     const account = this.findAccountById(accountId);
     if (!account) {
       throw new Error(`La cuenta '${accountId}' no existe.`);
+    }
+
+    return {
+      accountId: account.accountAlpha,
+      email: account.email,
+      balance: account.balance
+    };
+  }
+
+  getAccountBalanceByUserId(userId) {
+    const account = this.findAccountByUserId(userId);
+    if (!account) {
+      throw new Error(`El usuario '${userId}' no tiene una cuenta asociada.`);
     }
 
     return {

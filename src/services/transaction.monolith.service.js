@@ -42,6 +42,10 @@ class TransactionService {
   getAccountBalance(accountId) {
     return this.financialVerificationService.getAccountBalance(accountId);
   }
+
+  getAccountBalanceByUserId(userId) {
+    return this.financialVerificationService.getAccountBalanceByUserId(userId);
+  }
 }
 
 const financialVerificationService = new FinancialVerificationService(usersDb);
